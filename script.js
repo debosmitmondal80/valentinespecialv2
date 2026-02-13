@@ -10,7 +10,7 @@ const quizData = [
     { question: "Koto bochor eksonge thakte chas?", options: ["1 year", "2 years", "5 years", "Sarajibon...❤️"] },
     { question: "Ami kemon?", options: ["Faltu", "Khub faltu 😤", "Thikthak 😐", "Khub bhalo ❤️"] }
 ];
-const reactions = ["🟢Debosmit: O maa tai? 😮", "🟢Debosmit: Sotti bolchis? 🤨", "🟢Debosmit: Bapre !!", "🟢Debosmit: Thik ache.... 😏", "🟢Debosmit: Dushtu.... 🙈", "🟢Debosmit: Achhaaaaaaaa 😏❤️"];
+const reactions = ["🟢Debosmit: O maa tai? 😮", "🟢Debosmit: Sotti bolchis? 🤨", "🟢Debosmit: Bapre !!", "🟢Debosmit: Dhustu....🙈", "🟢Debosmit: Achhaa....☺️", "🟢Debosmit: Achhaaaaaaaa 😏❤️"];
 
 const cardArray = [
     { name: 'rose', icon: '🌹' }, { name: 'rose', icon: '🌹' },
@@ -361,20 +361,22 @@ document.getElementById("final-msg-btn").addEventListener("click", () => {
     changeScreen(screens.neon, screens.final);
     if (typeof confetti === "function") confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
     
-    const noteText = "You are always in my mind and forever in my heart. 💖\nThank you for making my life beautiful.\n\nHappy Valentine's Day My Love! 🌹";
+    // 👇 YOUR MESSAGE IS HERE 👇
+    const noteText = "You are always in my mind and forever in my heart.💖\n\nThanks amar life e emon hotath kore ese amar life ta ke sundar kore tolar jonno....\n\nTuiy holi amar sobcheye precious gift. Tor 2 to chokh er dike ami jotobar takay totobar tor preme pore jai😘, Tor sei golar mishti tone, Tor hasi, tor paglami amake prottyek bar mugdho kore 🫠....\n\nAmi toke sompurno nijer kore pete chay.... jiboner sesh porjonto ami tor sathe katate chay🫠🥺.\n\nJhogra, ragaragi, oviman-- eisobkichu jeno amra eksathe enjoy kore jate eksonge life e egiye jete pari, jotoi kothin situation asuk amra jeno strongly tar mokabela korte pari, prottyek bochorer valentine's day jeno amader eksathe kate.... etay amar chaoa😌. Amar sudhu toke chay aar kichhu chayna....💗💕\n\nHappy Valentine's Day my love.🌹";
+    
     const noteElement = document.querySelector(".love-note");
     noteElement.innerHTML = ""; 
     let i = 0;
     function typeWriter() {
         if (i < noteText.length) {
+            // Converts \n to <br> for HTML line breaks
             noteElement.innerHTML += (noteText.charAt(i) === "\n") ? "<br>" : noteText.charAt(i);
             i++;
-            setTimeout(typeWriter, 50);
+            setTimeout(typeWriter, 40); // Adjusted typing speed slightly for long text
         }
     }
     typeWriter();
 });
-
 // --- UTILS ---
 function showToast(msg) { toast.innerText = msg; toast.className = "show"; setTimeout(() => toast.className = "", 1400); }
 function triggerShake() { loginBox.classList.remove("shake-animation"); void loginBox.offsetWidth; loginBox.classList.add("shake-animation"); }

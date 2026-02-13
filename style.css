@@ -86,14 +86,35 @@ button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255, 77,
 .progress-track { height: 8px; background: #ffd8e0; border-radius: 10px; overflow: hidden; margin: 15px 0; }
 #progress-bar { height: 100%; width: 0; background: #ff4d4d; transition: 0.3s; }
 
-/* --- 7. ENDING & UTILS --- */
-.hidden-message { display: none; margin-top: 25px; background: rgba(255,255,255,0.95); padding: 25px; border-radius: 20px; border: 2px solid #ff4d4d; animation: popInMessage 0.8s; }
+/* --- 7. ENDING MESSAGE (FIXED FOR LONG TEXT) --- */
+.hidden-message {
+    display: none;
+    margin-top: 25px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 25px;
+    border-radius: 20px;
+    border: 2px solid #ff4d4d;
+    box-shadow: 0 10px 40px rgba(255, 77, 77, 0.2);
+    
+    /* SCROLLABLE LOGIC */
+    max-height: 50vh; /* Takes up max 50% of the screen height */
+    overflow-y: auto; /* Adds scrollbar if text is too long */
+    
+    animation: popInMessage 0.8s;
+}
+
+/* Custom Scrollbar for Chrome/Safari */
+.hidden-message::-webkit-scrollbar { width: 8px; }
+.hidden-message::-webkit-scrollbar-track { background: #ffe6e6; border-radius: 10px; }
+.hidden-message::-webkit-scrollbar-thumb { background-color: #ff4d4d; border-radius: 10px; border: 2px solid #ffe6e6; }
+
 @keyframes popInMessage { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 .love-note { font-family: 'Courier New', monospace; font-size: 1.05rem; line-height: 1.6; color: #333; }
+
 #toast { visibility: hidden; background: #333; color: white; padding: 12px 25px; border-radius: 30px; position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 3000; opacity: 0; transition: 0.3s; }
 #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
 
-/* --- 8. RESTORED LOADING ANIMATION --- */
+/* --- 8. LOADING ANIMATION --- */
 .suspense {
     position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
     background: radial-gradient(60% 60% at 50% 30%, rgba(255, 120, 170, 0.35), rgba(10, 0, 8, 0.85));
@@ -139,8 +160,7 @@ button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255, 77,
 .name-text { position: relative; z-index: 20; color: #444; font-size: 3.5rem; white-space: nowrap; margin-top: -20px; font-family: 'Pacifico', cursive; }
 .neon-char { display: inline-block; opacity: 0.3; }
 
-/* SLOW FLICKER ANIMATION */
-.flicker-on { animation: turnOn 2s linear forwards; } 
+.flicker-on { animation: turnOn 1.5s linear forwards; }
 @keyframes turnOn {
     0% { opacity: 0.1; color: #444; text-shadow: none; }
     10% { opacity: 1; color: #fff; text-shadow: 0 0 10px #ff0054, 0 0 20px #ff0054; }
@@ -153,7 +173,6 @@ button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255, 77,
 @keyframes heartbeatNeon { from { transform: translate(-50%, -50%) scale(1); } to { transform: translate(-50%, -50%) scale(1.15); } }
 
 /* NEON PARTICLES & RAIN */
-/* Important: Added font-family Pacifico here for beautiful text */
 .neon-text { 
     position: absolute; top: -50px; color: #fff; white-space: nowrap; 
     z-index: 10; pointer-events: none; font-weight: bold; will-change: transform;
