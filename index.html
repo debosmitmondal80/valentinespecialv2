@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For My Sona ❤️</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="aurora"></div>
+    <div class="hearts">
+        <div>❤️</div><div>💖</div><div>💕</div><div>❤️</div><div>💖</div><div>💕</div>
+    </div>
+
+    <div id="login-screen" class="screen">
+        <div class="login-box">
+            <h2>Login to My Heart 🔒</h2>
+            <p class="hint">Enter your name & password.</p>
+            <input type="text" id="nameInput" placeholder="Your Name" autocomplete="off">
+            <input type="password" id="passwordInput" placeholder="Password (Hint: onlyformysona)">
+            <button id="loginBtn">Enter</button>
+            <p id="error-msg" class="error"></p>
+        </div>
+    </div>
+
+    <div id="memory-screen" class="screen hidden">
+        <div class="container">
+            <h2 style="color: #d32f2f; margin-bottom: 20px;">Level 1: Match the Pairs 🃏</h2>
+            <div class="memory-grid" id="memory-grid"></div>
+            <p class="hint-text">Find all matching pairs to unlock the next level!</p>
+        </div>
+    </div>
+
+    <div id="catch-screen" class="screen hidden">
+        <div class="container">
+            <h2>Level 2: Catch the Hearts 💖</h2>
+            <div class="game-stats">
+                <p id="catch-score">Score: 0</p>
+                <p id="catch-timer">Time: 20s</p>
+            </div>
+            <div id="game-area"></div>
+            <p id="catch-message" class="game-message">Catch as many as you can in 20 seconds!</p>
+            <button id="catch-start-btn">Start Game</button>
+        </div>
+    </div>
+
+    <div id="result-overlay" class="screen hidden" style="z-index: 50;">
+        <div class="container">
+            <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Time's Up! ⏰</h1>
+            <h2 style="color: #5b1e2c;">You caught</h2>
+            <h1 id="final-score" style="font-size: 4rem; margin: 10px 0; color: #ff4d4d;">0</h1>
+            <h2 style="color: #5b1e2c;">Hearts!</h2>
+            <button id="resultNextBtn" style="margin-top: 20px;">Next Level ➡️</button>
+        </div>
+    </div>
+
+    <div id="pre-quiz-screen" class="screen hidden">
+        <div class="container">
+            <h2>Ami ebar tomake koyek ta question korbo thikache? 🎤</h2>
+            <button id="preQuizBtn" style="margin-top: 20px;">Thik ache ❤️</button>
+        </div>
+    </div>
+
+    <div id="quiz-screen" class="screen hidden">
+        <div class="container">
+            <h2 id="quiz-question">Question goes here...</h2>
+            <div class="progress-track">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+            <div id="option-container" class="quiz-options"></div>
+            <p id="progress">Level 1/6</p>
+        </div>
+    </div>
+
+    <div id="permission-screen" class="screen hidden">
+        <div class="container">
+            <h1 class="bengali-text">Ami ki tomake ekta question korte pari? 🥺</h1>
+            <div class="btn-group">
+                <button id="permissionYes">Haa koro</button>
+                <button id="permissionNo">Naa</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="proposal-screen" class="screen hidden">
+        <div class="container">
+            <h2 id="greeting-msg">Hello!</h2>
+            <img id="gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3R6eW50eXQ2eXQ2eXQ2eXQ2eXQ2eXQ2eXQ2eXQ2eXQ2eSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif" alt="Cute Bear">
+            <h1 id="question">Will you be my Valentine?</h1>
+            
+            <div class="btn-group">
+                <button id="yesBtn">Yes</button>
+                <button id="noBtn">No</button>
+            </div>
+
+            <div id="message-box" class="hidden-message">
+                <h1 class="valentine-header">Happy Valentine's Day! 🌹</h1>
+                <p class="love-note"></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast">Answer Submitted!</div>
+    <div id="sparkle-layer"></div>
+    
+    <div id="suspense-overlay" class="suspense hidden">
+        <div class="suspense-card">
+            <div class="heart-loader"><div class="heart-shape"></div></div>
+            <p id="suspense-text" class="suspense-text">Loading...</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
