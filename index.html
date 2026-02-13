@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>For My Sona ❤️</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="aurora"></div>
@@ -87,26 +88,45 @@
             <h2 id="greeting-msg">Hello!</h2>
             <img id="gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3R6eW50eXQ2eXQ2eXQ2eXQ2eXQ2eXQ2eXQ2eXQ2eXQ2eSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif" alt="Cute Bear">
             <h1 id="question">Will you be my Valentine?</h1>
-            
             <div class="btn-group">
                 <button id="yesBtn">Yes</button>
                 <button id="noBtn">No</button>
             </div>
+        </div>
+    </div>
 
-            <div id="message-box" class="hidden-message">
-                <h1 class="valentine-header">Happy Valentine's Day! 🌹</h1>
+    <div id="neon-screen" class="screen hidden">
+        <div id="canvas-container">
+            <div class="center-wrapper" id="main-wrapper">
+                <svg class="neon-heart-svg" viewBox="0 0 300 300">
+                    <path id="heart-path" class="heart-path" 
+                          d="M150 90 C 75 0, 0 50, 20 120 C 40 190, 150 270, 150 270 C 150 270, 260 190, 280 120 C 300 50, 225 0, 150 90" />
+                </svg>
+                <div class="name-text" id="name-box"></div>
+            </div>
+        </div>
+        <button id="final-msg-btn" class="hidden" style="position: absolute; bottom: 60px; z-index: 100;">Open Letter 💌</button>
+    </div>
+
+    <div id="final-screen" class="screen hidden">
+        <div class="container">
+            <img src="https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif" alt="Kiss">
+            <div id="message-box" class="hidden-message" style="display: block;">
+                <h1 class="valentine-header" style="display: block;">Happy Valentine's Day! 🌹</h1>
                 <p class="love-note"></p>
             </div>
         </div>
     </div>
 
     <div id="toast">Answer Submitted!</div>
-    <div id="sparkle-layer"></div>
     
     <div id="suspense-overlay" class="suspense hidden">
         <div class="suspense-card">
-            <div class="heart-loader"><div class="heart-shape"></div></div>
+            <div class="heart-loader">
+                <div class="heart-shape"></div>
+            </div>
             <p id="suspense-text" class="suspense-text">Loading...</p>
+            <div class="pulse-ring"></div>
         </div>
     </div>
 

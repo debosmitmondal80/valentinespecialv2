@@ -30,7 +30,9 @@ const screens = {
     preQuiz: document.getElementById("pre-quiz-screen"),
     quiz: document.getElementById("quiz-screen"),
     permission: document.getElementById("permission-screen"),
-    proposal: document.getElementById("proposal-screen")
+    proposal: document.getElementById("proposal-screen"),
+    neon: document.getElementById("neon-screen"),
+    final: document.getElementById("final-screen")
 };
 
 const toast = document.getElementById("toast");
@@ -59,7 +61,7 @@ loginBtn.addEventListener("click", () => {
             initMemoryGame();
         });
     } else {
-        errorMsg.innerText = "Wrong password! Hint: onlyformysona";
+        errorMsg.innerText = "Wrong password!";
         triggerShake();
     }
 });
@@ -96,7 +98,7 @@ function checkForMatch() {
     }
     cardsChosen = []; cardsChosenId = []; lockBoard = false;
     if (cardsWon.length === cardArray.length / 2) {
-        setTimeout(() => showSuspense("Level 1 Complete! Loading Level 2...", 1500, () => changeScreen(screens.memory, screens.catch)), 1000);
+        setTimeout(() => showSuspense("Level 2...", 1500, () => changeScreen(screens.memory, screens.catch)), 1000);
     }
 }
 
@@ -196,14 +198,10 @@ const permissionYes = document.getElementById("permissionYes");
 const permissionNo = document.getElementById("permissionNo");
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
-const question = document.getElementById("question");
-const gif = document.getElementById("gif");
-const messageBox = document.getElementById("message-box");
 
-// --- FIX: ROBUST RUNAWAY BUTTON ---
+// Runaway Logic
 function setupRunawayButton(btn) {
     const moveBtn = () => {
-        // Move button to body if not already there (to avoid container clipping)
         if (btn.parentNode !== document.body) {
             const rect = btn.getBoundingClientRect();
             document.body.appendChild(btn);
@@ -211,48 +209,158 @@ function setupRunawayButton(btn) {
             btn.style.left = rect.left + "px";
             btn.style.top = rect.top + "px";
         }
-
-        // Calculate safe random position within viewport
-        const safeWidth = window.innerWidth - btn.offsetWidth - 20;
-        const safeHeight = window.innerHeight - btn.offsetHeight - 20;
-        const x = Math.max(10, Math.random() * safeWidth);
-        const y = Math.max(10, Math.random() * safeHeight);
-
-        // Apply new position
-        btn.style.position = "fixed";
-        btn.style.left = x + "px";
-        btn.style.top = y + "px";
-        btn.style.zIndex = "1000"; 
+        const x = Math.max(10, Math.random() * (window.innerWidth - btn.offsetWidth - 20));
+        const y = Math.max(10, Math.random() * (window.innerHeight - btn.offsetHeight - 20));
+        btn.style.position = "fixed"; btn.style.left = x + "px"; btn.style.top = y + "px"; btn.style.zIndex = "1000";
     };
-
     btn.addEventListener("mouseover", moveBtn);
     btn.addEventListener("touchstart", (e) => { e.preventDefault(); moveBtn(); });
     btn.addEventListener("click", (e) => { e.preventDefault(); moveBtn(); });
 }
-
-setupRunawayButton(permissionNo);
-setupRunawayButton(noBtn);
+setupRunawayButton(permissionNo); setupRunawayButton(noBtn);
 
 permissionYes.addEventListener("click", () => {
-    // FIX: Manually hide the runaway button
     permissionNo.style.display = "none";
     showSuspense("Please wait...", 2000, () => changeScreen(screens.permission, screens.proposal));
 });
 
-// SITE 2 ENDING
+// --- 6. NEON GRAND FINALE (EXACT REPLICA) ---
+const neonContainer = document.getElementById('canvas-container');
+const messages = ["I Love You", "Amar Sona", "Forever", "My Everything", "Be Mine", "Jaana", "❤️", "🥰", "Sudhu Tumi","Tomake Chai","My Love"];
+const neonColors = ["#ff0054", "#00f2ea", "#bc13fe", "#39ff14", "#ffea00"];
+
 yesBtn.addEventListener("click", () => {
-    question.style.display = "none";
-    yesBtn.style.display = "none";
-    noBtn.style.display = "none"; // Hide runaway No button
-    greetingMsg.style.display = "none";
+    noBtn.style.display = "none";
+    changeScreen(screens.proposal, screens.neon);
+    startNeonAnimation();
+});
 
-    gif.src = "https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif"; 
+function startNeonAnimation() {
+    const nameText = nameInput.value || "My Love";
+    const nameBox = document.getElementById('name-box');
+    const heartPath = document.getElementById('heart-path');
+    const wrapper = document.getElementById('main-wrapper');
+    const finalMsgBtn = document.getElementById("final-msg-btn");
+
+    nameBox.innerHTML = "";
     
-    messageBox.style.display = "block";
-    document.querySelector(".valentine-header").style.display = "block";
+    // 1. Prepare Name
+    for (let letter of nameText) {
+        const span = document.createElement('span');
+        span.innerText = letter;
+        span.classList.add('neon-char');
+        nameBox.appendChild(span);
+    }
 
+    // 2. Start Flickering Letters (SLOWER SPEED: 800ms)
+    function flickerLetter(index) {
+        const letters = document.querySelectorAll('.neon-char');
+        if (index < letters.length) {
+            letters[index].classList.add('flicker-on');
+            setTimeout(() => flickerLetter(index + 1), 800); // Changed to 800ms
+        } else {
+            // After name finished, draw heart
+            setTimeout(() => {
+                heartPath.classList.add('draw-heart');
+                setTimeout(() => { wrapper.classList.add('beating'); }, 2500);
+            }, 500);
+        }
+    }
+    setTimeout(() => flickerLetter(0), 1000);
+
+    // 3. Raining Messages (Using Web Animation API for exact effect)
+    setInterval(createNeonDrop, 250);
+
+    // 4. Interactive Events
+    document.addEventListener('touchmove', handleInput, { passive: false });
+    document.addEventListener('touchstart', handleTap, { passive: false });
+    document.addEventListener('mousemove', handleInput);
+    document.addEventListener('click', handleTap);
+
+    // Show button later
+    setTimeout(() => { finalMsgBtn.classList.remove("hidden"); }, 12000);
+}
+
+function createNeonDrop() {
+    if(screens.neon.classList.contains("hidden")) return;
+    const drop = document.createElement('div');
+    drop.innerText = messages[Math.floor(Math.random() * messages.length)];
+    drop.classList.add('neon-text'); 
+    const color = neonColors[Math.floor(Math.random() * neonColors.length)];
+    drop.style.textShadow = `0 0 5px ${color}, 0 0 15px ${color}`;
+    drop.style.left = (Math.random() * 80 + 5) + '%'; 
+    drop.style.fontSize = (Math.random() * 1.5 + 1.2) + 'rem';
+    neonContainer.appendChild(drop);
+    
+    const duration = Math.random() * 3000 + 3000;
+    drop.animate([
+        { transform: 'translateY(-10vh)', opacity: 0 },
+        { opacity: 1, offset: 0.1 },
+        { transform: 'translateY(110vh)', opacity: 0.5 }
+    ], { duration: duration, easing: 'linear' }).onfinish = () => drop.remove();
+}
+
+// --- INTERACTIVE NEON TRAILS ---
+function handleInput(e) {
+    if(screens.neon.classList.contains("hidden")) return;
+    if(e.touches) {
+        for (let i = 0; i < e.touches.length; i++) {
+            createTrail(e.touches[i].clientX, e.touches[i].clientY);
+        }
+    } else {
+        createTrail(e.clientX, e.clientY);
+    }
+}
+
+function handleTap(e) {
+    if(screens.neon.classList.contains("hidden")) return;
+    let x, y;
+    if(e.changedTouches) {
+        x = e.changedTouches[0].clientX;
+        y = e.changedTouches[0].clientY;
+    } else {
+        x = e.clientX;
+        y = e.clientY;
+    }
+    createBurst(x, y);
+}
+
+let isThrottled = false;
+function createTrail(x, y) {
+    if (isThrottled) return;
+    isThrottled = true;
+    setTimeout(() => isThrottled = false, 30);
+    const trail = document.createElement('div');
+    trail.classList.add('trail');
+    trail.style.left = x + 'px';
+    trail.style.top = y + 'px';
+    const color = neonColors[Math.floor(Math.random() * neonColors.length)];
+    trail.style.backgroundColor = color;
+    trail.style.boxShadow = `0 0 10px ${color}, 0 0 20px ${color}`;
+    neonContainer.appendChild(trail);
+    trail.animate([{ transform: 'translate(-50%, -50%) scale(1)', opacity: 0.8 }, { transform: 'translate(-50%, -50%) scale(0)', opacity: 0 }], { duration: 600, easing: 'ease-out' }).onfinish = () => trail.remove();
+}
+
+function createBurst(x, y) {
+    for (let i = 0; i < 10; i++) {
+        const p = document.createElement('div');
+        p.classList.add('burst-particle');
+        p.innerText = '❤️';
+        p.style.left = x + 'px';
+        p.style.top = y + 'px';
+        neonContainer.appendChild(p);
+        const destX = (Math.random() - 0.5) * 150;
+        const destY = (Math.random() - 0.5) * 150;
+        const rotate = Math.random() * 360;
+        p.animate([{ transform: `translate(-50%, -50%) rotate(0deg)`, opacity: 1 }, { transform: `translate(calc(-50% + ${destX}px), calc(-50% + ${destY}px)) rotate(${rotate}deg)`, opacity: 0 }], { duration: 800 + Math.random() * 300 }).onfinish = () => p.remove();
+    }
+}
+
+// 7. FINAL MESSAGE
+document.getElementById("final-msg-btn").addEventListener("click", () => {
+    changeScreen(screens.neon, screens.final);
     if (typeof confetti === "function") confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
-
+    
     const noteText = "You are always in my mind and forever in my heart. 💖\nThank you for making my life beautiful.\n\nHappy Valentine's Day My Love! 🌹";
     const noteElement = document.querySelector(".love-note");
     noteElement.innerHTML = ""; 
