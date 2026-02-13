@@ -1,5 +1,6 @@
 // --- CONFIGURATION ---
 const CORRECT_PASSWORD = "onlyformysona"; 
+const HER_NAME = "Sona"; // <--- CHANGE THIS TO HER ACTUAL NAME
 
 // --- DATA ---
 const quizData = [
@@ -10,7 +11,7 @@ const quizData = [
     { question: "Koto bochor eksonge thakte chas?", options: ["1 year", "2 years", "5 years", "Sarajibon...❤️"] },
     { question: "Ami kemon?", options: ["Faltu", "Khub faltu 😤", "Thikthak 😐", "Khub bhalo ❤️"] }
 ];
-const reactions = ["🟢Debosmit: O maa tai? 😮", "🟢Debosmit: Sotti bolchis? 🤨", "🟢Debosmit: Bapre !!", "🟢Debosmit: Dhustu....🙈", "🟢Debosmit: Achhaa....☺️", "🟢Debosmit: Achhaaaaaaaa 😏❤️"];
+const reactions = ["🟢Debosmit: O maa tai? 😮", "🟢Debosmit: Sotti bolchis? 🤨", "🟢Debosmit: Bapre !!", "🟢Debosmit: Thik ache.... 😏", "🟢Debosmit: Dushtu.... 🙈", "🟢Debosmit: Achhaaaaaaaa 😏❤️"];
 
 const cardArray = [
     { name: 'rose', icon: '🌹' }, { name: 'rose', icon: '🌹' },
@@ -49,13 +50,18 @@ const loginBox = document.querySelector(".login-box");
 
 // --- 1. LOGIN ---
 loginBtn.addEventListener("click", () => {
+    // We still ask for input to make it feel like a login, 
+    // but we won't use the typed name for the visuals.
     if (nameInput.value.trim() === "") {
         errorMsg.innerText = "Please tell me your name! 🥺";
         triggerShake(); return;
     }
     if (passInput.value.trim().toLowerCase() === CORRECT_PASSWORD) {
         errorMsg.innerText = "";
-        greetingMsg.innerText = `Hello, ${nameInput.value}! ❤️`;
+        
+        // USE PREDEFINED NAME HERE
+        greetingMsg.innerText = `Hello, ${HER_NAME}! ❤️`;
+        
         showSuspense("Unlocking Secret World...", 2000, () => {
             changeScreen(screens.login, screens.memory);
             initMemoryGame();
@@ -224,7 +230,7 @@ permissionYes.addEventListener("click", () => {
     showSuspense("Please wait...", 2000, () => changeScreen(screens.permission, screens.proposal));
 });
 
-// --- 6. NEON GRAND FINALE (EXACT REPLICA) ---
+// --- 6. NEON GRAND FINALE ---
 const neonContainer = document.getElementById('canvas-container');
 const messages = ["I Love You", "Amar Sona", "Forever", "My Everything", "Be Mine", "Jaana", "❤️", "🥰", "Sudhu Tumi","Tomake Chai","My Love"];
 const neonColors = ["#ff0054", "#00f2ea", "#bc13fe", "#39ff14", "#ffea00"];
@@ -236,7 +242,8 @@ yesBtn.addEventListener("click", () => {
 });
 
 function startNeonAnimation() {
-    const nameText = nameInput.value || "My Love";
+    // USE PREDEFINED NAME HERE
+    const nameText = HER_NAME;
     const nameBox = document.getElementById('name-box');
     const heartPath = document.getElementById('heart-path');
     const wrapper = document.getElementById('main-wrapper');
@@ -252,12 +259,12 @@ function startNeonAnimation() {
         nameBox.appendChild(span);
     }
 
-    // 2. Start Flickering Letters (SLOWER SPEED: 800ms)
+    // 2. Start Flickering Letters (800ms)
     function flickerLetter(index) {
         const letters = document.querySelectorAll('.neon-char');
         if (index < letters.length) {
             letters[index].classList.add('flicker-on');
-            setTimeout(() => flickerLetter(index + 1), 800); // Changed to 800ms
+            setTimeout(() => flickerLetter(index + 1), 800); 
         } else {
             // After name finished, draw heart
             setTimeout(() => {
@@ -268,7 +275,7 @@ function startNeonAnimation() {
     }
     setTimeout(() => flickerLetter(0), 1000);
 
-    // 3. Raining Messages (Using Web Animation API for exact effect)
+    // 3. Raining Messages
     setInterval(createNeonDrop, 250);
 
     // 4. Interactive Events
@@ -356,27 +363,30 @@ function createBurst(x, y) {
     }
 }
 
-// 7. FINAL MESSAGE
+// 7. FINAL MESSAGE (AUTOSCROLL ADDED)
 document.getElementById("final-msg-btn").addEventListener("click", () => {
     changeScreen(screens.neon, screens.final);
     if (typeof confetti === "function") confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
     
-    // 👇 YOUR MESSAGE IS HERE 👇
-    const noteText = "You are always in my mind and forever in my heart.💖\n\nThanks amar life e emon hotath kore ese amar life ta ke sundar kore tolar jonno....\n\nTuiy holi amar sobcheye precious gift. Tor 2 to chokh er dike ami jotobar takay totobar tor preme pore jai😘, Tor sei golar mishti tone, Tor hasi, tor paglami amake prottyek bar mugdho kore 🫠....\n\nAmi toke sompurno nijer kore pete chay.... jiboner sesh porjonto ami tor sathe katate chay🫠🥺.\n\nJhogra, ragaragi, oviman-- eisobkichu jeno amra eksathe enjoy kore jate eksonge life e egiye jete pari, jotoi kothin situation asuk amra jeno strongly tar mokabela korte pari, prottyek bochorer valentine's day jeno amader eksathe kate.... etay amar chaoa😌. Amar sudhu toke chay aar kichhu chayna....💗💕\n\nHappy Valentine's Day my love.🌹";
+    const noteText = "You are always in my mind and forever in my heart.💖\n\nThanks amar life e emon hotath kore ese amar life ta ke sundar kore tolar jonno....\n\nTuiy holi amar sobcheye precious gift. Tor 2 to chokh er dike ami jotobar takay totobar tor preme pore jai😘, Tor sei golar mishti tone, Tor hasi, tor paglami amake prottyek bar mugdho kore 🫠....\n\nAmi toke sompurno nijer kore pete chay.... jiboner sesh porjonto ami tor sathe katate chay🫠🥺.\n\nJhogra, ragaragi, oviman-- eisobkichu jeno amra eksathe enjoy kore jate eksonge life e egiye jete pari, jotoi kothin situation asuk amra jeno strongly tar mokabela korte pari, prottyek bochorer valentine's day jeno amader eksathe kate.... etay amar chaoa😌. Amar sudhu toke chay aar kichhu chayna....💗💕\n\nHappy Valentine's Day my love.";
     
     const noteElement = document.querySelector(".love-note");
+    const messageBox = document.getElementById("message-box");
     noteElement.innerHTML = ""; 
     let i = 0;
+    
     function typeWriter() {
         if (i < noteText.length) {
-            // Converts \n to <br> for HTML line breaks
             noteElement.innerHTML += (noteText.charAt(i) === "\n") ? "<br>" : noteText.charAt(i);
             i++;
-            setTimeout(typeWriter, 40); // Adjusted typing speed slightly for long text
+            // AUTOSCROLL LINE
+            messageBox.scrollTop = messageBox.scrollHeight;
+            setTimeout(typeWriter, 40);
         }
     }
     typeWriter();
 });
+
 // --- UTILS ---
 function showToast(msg) { toast.innerText = msg; toast.className = "show"; setTimeout(() => toast.className = "", 1400); }
 function triggerShake() { loginBox.classList.remove("shake-animation"); void loginBox.offsetWidth; loginBox.classList.add("shake-animation"); }
