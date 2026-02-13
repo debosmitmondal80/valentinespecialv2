@@ -1,6 +1,6 @@
 // --- CONFIGURATION ---
-const CORRECT_PASSWORD = "onlyformysona"; 
-const HER_NAME = "Sona"; // <--- CHANGE THIS TO HER ACTUAL NAME
+const CORRECT_PASSWORD = "love"; 
+const HER_NAME = "Dristi"; // <--- CHANGE THIS TO HER ACTUAL NAME
 
 // --- DATA ---
 const quizData = [
