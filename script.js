@@ -11,7 +11,7 @@ const quizData = [
     { question: "Koto bochor eksonge thakte chas?", options: ["1 year", "2 years", "5 years", "Sarajibon...❤️"] },
     { question: "Ami kemon?", options: ["Faltu", "Khub faltu 😤", "Thikthak 😐", "Khub bhalo ❤️"] }
 ];
-const reactions = ["🟢Debosmit: O maa tai? 😮", "🟢Debosmit: Sotti bolchis? 🤨", "🟢Debosmit: Bapre !!", "🟢Debosmit: Thik ache.... 😏", "🟢Debosmit: Dushtu.... 🙈", "🟢Debosmit: Achhaaaaaaaa 😏❤️"];
+const reactions = ["🟢Debosmit: O maa tai? 😮", "🟢Debosmit: Sotti bolchis? 🤨", "🟢Debosmit: Bapre !!", "🟢Debosmit: Dushtu.... 🙈", "🟢Debosmit: Achhaa", "🟢Debosmit: Achhaaaaaaaa 😏❤️"];
 
 const cardArray = [
     { name: 'rose', icon: '🌹' }, { name: 'rose', icon: '🌹' },
